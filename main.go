@@ -1,6 +1,6 @@
 package main
 
-import "bbbFuture/crowler"
+import "bbb-future/crowler"
 
 func main() {
 	crowler.SaveBrothersData()
