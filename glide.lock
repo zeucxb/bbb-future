@@ -1,0 +1,27 @@
+hash: ff3bd61f98d6e2da9f0935f724feed4f72ee37701bd571b6f6d7ab2045f1aa80
+updated: 2017-02-22T15:09:11.356541093-03:00
+imports:
+- name: github.com/andybalholm/cascadia
+  version: 349dd0209470eabd9514242c688c403c0926d266
+- name: github.com/bitly/go-simplejson
+  version: da1a8928f709389522c8023062a3739f3b4af419
+- name: github.com/celrenheit/spider
+  version: b793fba83ad74b8bbd1d774f83b3f34599344eaf
+- name: github.com/cenkalti/backoff
+  version: b02f2bbce11d7ea6b97f282ef1771b0fe2f65ef3
+- name: github.com/PuerkitoBio/goquery
+  version: e1271ee34c6a305e38566ecd27ae374944907ee9
+- name: golang.org/x/net
+  version: 6b27048ae5e6ad1ef927e72e437531493de612fe
+  subpackages:
+  - html
+  - html/atom
+  - publicsuffix
+- name: gopkg.in/mgo.v2
+  version: 3f83fa5005286a7fe593b055f0d7771a7dce4655
+  subpackages:
+  - bson
+  - internal/json
+  - internal/sasl
+  - internal/scram
+testImports: []

@@ -1,0 +1,7 @@
+package: bbbFuture
+import:
+- package: github.com/celrenheit/spider
+  version: ^0.3.1
+- package: gopkg.in/mgo.v2
+  subpackages:
+  - bson
