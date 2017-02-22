@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"time"
 
@@ -11,27 +12,10 @@ import (
 	"github.com/celrenheit/spider"
 )
 
-// BBBSpider scrape wikipedia's page for BBB
-// It is defined below in the init function
 var BBBSpider spider.Spider
 
-// func main() {
-// 	// Create a new scheduler
-// 	scheduler := spider.NewScheduler()
-
-// 	// Register the spider to be scheduled every 15 seconds
-// 	scheduler.Add(schedule.Every(1*time.Millisecond), BBBSpider)
-
-// 	// Start the scheduler
-// 	scheduler.Start()
-
-// 	// Exit 5 seconds later to let time for the request to be done.
-// 	// Depends on your internet connection
-// 	<-time.After(65 * time.Second)
-// }
-
 type originType struct {
-	City    string `bson:"origin"`
+	City    string `bson:"city"`
 	State   string `bson:"state"`
 	Country string `bson:"country"`
 }
@@ -39,9 +23,10 @@ type originType struct {
 type brotherType struct {
 	ID         bson.ObjectId `bson:"_id"`
 	Name       string        `bson:"name"`
-	Birthdate  string        `bson:"birthdate"`
+	Birthdate  time.Time     `bson:"birthdate"`
 	Origin     originType    `bson:"origin"`
 	Occupation string        `bson:"occupation"`
+	Edition    int           `bson:"edition"`
 }
 
 type brothersList []interface{}
@@ -71,11 +56,26 @@ func main() {
 				brother := brothers.Eq(j).Find(".wikitable > tbody > tr > td")
 
 				if brother.Length() > 0 {
+					dateRE := regexp.MustCompile(`\(\d{4}\)`)
+					birthdateString := dateRE.FindString(brother.Eq(1).Text())
+					if birthdateString != "" {
+						birthdateString = strings.Trim(birthdateString, "()")
+						birthdateString = fmt.Sprintf("01/01/%s", birthdateString)
+					} else {
+						birthdateString = strings.Split(brother.Eq(1).Text(), "-")[0]
+						birthdateString = strings.Trim(birthdateString, " ")
+					}
+
+					birthdate, err := time.Parse("02/01/2006", birthdateString)
+					if err != nil {
+						panic(err)
+					}
 
 					newBrother := brotherType{
 						ID:        bson.NewObjectId(),
 						Name:      brother.Eq(0).Text(),
-						Birthdate: brother.Eq(1).Text(),
+						Birthdate: birthdate,
+						Edition:   i + 1,
 					}
 
 					var origin []string
