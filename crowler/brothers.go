@@ -64,7 +64,7 @@ var bbbSpider = spider.Get("https://pt.wikipedia.org/wiki/Lista_de_participantes
 
 				birthdate, err := time.Parse("02/01/2006", birthdateString)
 				if err != nil {
-					panic(err)
+					return err
 				}
 
 				newBrother := brotherType{
@@ -111,14 +111,14 @@ var bbbSpider = spider.Get("https://pt.wikipedia.org/wiki/Lista_de_participantes
 	return err
 })
 
-func SaveBrothersData() {
+func SaveBrothersData() (err error) {
 	ctx, err := bbbSpider.Setup(nil)
 	if err != nil {
-		panic(err)
+		return
 	}
 
 	err = bbbSpider.Spin(ctx)
-	if err != nil {
-		panic(err)
-	}
+
+	return
+
 }

@@ -27,8 +27,8 @@ func main() {
 				Usage:       "run the crowler and populate db",
 				Description: "This run a spider and populate the database",
 				Action: func(c *cli.Context) error {
-					crowler.SaveBrothersData()
-					return nil
+					err := crowler.SaveBrothersData()
+					return err
 				},
 			},
 		},
