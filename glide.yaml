@@ -5,3 +5,5 @@ import:
 - package: gopkg.in/mgo.v2
   subpackages:
   - bson
+- package: gopkg.in/urfave/cli.v2
+  version: ^1.19.1

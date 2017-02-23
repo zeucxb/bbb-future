@@ -1,5 +1,5 @@
-hash: ff3bd61f98d6e2da9f0935f724feed4f72ee37701bd571b6f6d7ab2045f1aa80
-updated: 2017-02-22T15:09:11.356541093-03:00
+hash: b7aa3a1f584ac058176fe0adb1ad683b32180dd6f3e11bb53d49aaf7c86ba199
+updated: 2017-02-22T20:00:00.526949584-03:00
 imports:
 - name: github.com/andybalholm/cascadia
   version: 349dd0209470eabd9514242c688c403c0926d266
@@ -24,4 +24,6 @@ imports:
   - internal/json
   - internal/sasl
   - internal/scram
+- name: gopkg.in/urfave/cli.v2
+  version: 0bdeddeeb0f650497d603c4ad7b20cfe685682f6
 testImports: []
