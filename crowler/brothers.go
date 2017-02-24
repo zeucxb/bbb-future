@@ -30,22 +30,6 @@ type brothersList []interface{}
 
 var newBrothers brothersList
 
-func formatBirthdate(birthdate string) (formatedBirthdate time.Time, err error) {
-	dateRE := regexp.MustCompile(`\(\d{4}\)`)
-	birthdateString := dateRE.FindString(birthdate)
-	if birthdateString != "" {
-		birthdateString = strings.Trim(birthdateString, "()")
-		birthdateString = fmt.Sprintf("01/01/%s", birthdateString)
-	} else {
-		birthdateString = strings.Split(birthdate, "-")[0]
-		birthdateString = strings.Trim(birthdateString, " ")
-	}
-
-	formatedBirthdate, err = time.Parse("02/01/2006", birthdateString)
-
-	return
-}
-
 var bbbSpider = spider.Get("https://pt.wikipedia.org/wiki/Lista_de_participantes_do_Big_Brother_Brasil", func(ctx *spider.Context) error {
 	// Execute the request
 	if _, err := ctx.DoRequest(); err != nil {
@@ -115,6 +99,22 @@ var bbbSpider = spider.Get("https://pt.wikipedia.org/wiki/Lista_de_participantes
 
 	return err
 })
+
+func formatBirthdate(birthdate string) (formatedBirthdate time.Time, err error) {
+	dateRE := regexp.MustCompile(`\(\d{4}\)`)
+	birthdateString := dateRE.FindString(birthdate)
+	if birthdateString != "" {
+		birthdateString = strings.Trim(birthdateString, "()")
+		birthdateString = fmt.Sprintf("01/01/%s", birthdateString)
+	} else {
+		birthdateString = strings.Split(birthdate, "-")[0]
+		birthdateString = strings.Trim(birthdateString, " ")
+	}
+
+	formatedBirthdate, err = time.Parse("02/01/2006", birthdateString)
+
+	return
+}
 
 // SaveBrothersData get the brothers data and save in the database
 func SaveBrothersData() (err error) {
