@@ -8,6 +8,16 @@ import (
 	cli "gopkg.in/urfave/cli.v2"
 )
 
+var runAction = func(c *cli.Context) (err error) {
+	fmt.Printf("TODO")
+	return
+}
+
+var crowlerAction = func(c *cli.Context) (err error) {
+	err = crowler.SaveBrothersData()
+	return
+}
+
 func main() {
 	app := &cli.App{
 		Name: "bbb-future",
@@ -17,19 +27,13 @@ func main() {
 				Aliases:     []string{"r"},
 				Usage:       "run the server",
 				Description: "This start the server application",
-				Action: func(c *cli.Context) error {
-					fmt.Printf("TODO")
-					return nil
-				},
+				Action:      runAction,
 			}, {
 				Name:        "crowler",
 				Aliases:     []string{"c"},
 				Usage:       "run the crowler and populate db",
 				Description: "This run a spider and populate the database",
-				Action: func(c *cli.Context) error {
-					err := crowler.SaveBrothersData()
-					return err
-				},
+				Action:      crowlerAction,
 			},
 		},
 	}
