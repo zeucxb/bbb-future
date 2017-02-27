@@ -38,10 +38,23 @@ func TestFormatBirthdate(t *testing.T) {
 			assertationDate := time.Date(1997, time.January, 1, 0, 0, 0, 0, time.UTC)
 
 			formatedBirthdate, err = formatBirthdate("16 (1997)")
-			if err != nil {
-				t.Error(err)
-			}
+
+			g.Assert(err).Equal(nil)
 			g.Assert(formatedBirthdate).Equal(assertationDate)
+		})
+	})
+}
+
+func TestSaveBrothersData(t *testing.T) {
+	g := Goblin(t)
+
+	g.Describe("Save Brothers Data", func() {
+		var err error
+
+		g.It("Should save the data and return without error", func() {
+			err = SaveBrothersData()
+
+			g.Assert(err).Equal(nil)
 		})
 	})
 }

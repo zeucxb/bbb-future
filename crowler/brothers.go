@@ -126,5 +126,4 @@ func SaveBrothersData() (err error) {
 	err = bbbSpider.Spin(ctx)
 
 	return
-
 }
